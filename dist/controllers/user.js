@@ -61,7 +61,7 @@ class UserController {
             }
             else {
                 if (code !== otp.code) {
-                    return next(new appError_1.default(400, "sms wrong"));
+                    return next(new appError_1.default(400, "sms"));
                 }
                 else {
                     token = yield signToken(email, "");
@@ -107,7 +107,7 @@ class UserController {
             let user = yield main_1.storage.user.findOne({ email });
             let isTrue = bcrypt_1.checkCrypt(password, user.password);
             if (!isTrue) {
-                return next(new appError_1.default(404, "Password incorred!"));
+                return next(new appError_1.default(400, "password"));
             }
             token = yield signToken(email, user._id);
             res.json({

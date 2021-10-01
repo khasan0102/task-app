@@ -84,6 +84,16 @@
             "status": 400,
             "method_name": "error",
             "text": {
+                "eng": "Password entered incorrectly",
+                "ru": "Пароль введен неверно",
+                "uz": "Password noto'g'ri kiritilgan"
+            },
+            "model_name": "password"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
                 "eng": "The first letter of the name must be capitalized and the rest must be Latin letters",
                 "ru": "Первая буква имени должна быть заглавной, а остальные - латинскими",
                 "uz": "Ismda birinchi harf katta qolganlari lotin harfladan iborat bo'lishi kerak"

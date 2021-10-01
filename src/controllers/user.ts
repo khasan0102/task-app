@@ -60,7 +60,7 @@ export class UserController {
             await storage.otp.create({email, code} as IOTP);
         }else {
             if(code !== otp.code) {
-                return next(new AppError(400, "sms wrong"))
+                return next(new AppError(400, "sms"))
             }else {
                 token = await signToken(email, "");
             }
@@ -113,7 +113,7 @@ export class UserController {
         let isTrue = checkCrypt(password, user.password);
 
         if(!isTrue) {
-            return next(new AppError(404, "Password incorred!"))
+            return next(new AppError(400, "password"))
         }
 
         token = await signToken(email, user._id);

@@ -23,7 +23,7 @@ export class UserStorage implements UserRepo {
 
             if(!user) {
                 logger.warn(`${this.scope}.get failed to findOne`);
-                throw new AppError(404, "User is not found");
+                throw new AppError(404, "user");
             }
 
             return user;
@@ -50,7 +50,7 @@ export class UserStorage implements UserRepo {
 
             if(!user) {
                 logger.warn(`${this.scope}.get failed to Update`);
-                throw new AppError(404, "User is not found");
+                throw new AppError(404, "user");
             }
             
             return user;
@@ -66,7 +66,7 @@ export class UserStorage implements UserRepo {
 
             if(!user) {
                 logger.warn(`${this.scope}.get failed to Delete`);
-                throw new AppError(404, "User is not found");
+                throw new AppError(404, "user");
             }
 
             return user;

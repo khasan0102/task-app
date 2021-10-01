@@ -38,7 +38,7 @@ class UserStorage {
                 let user = yield Users_1.default.findOne(query);
                 if (!user) {
                     logger_1.logger.warn(`${this.scope}.get failed to findOne`);
-                    throw new appError_1.default(404, "User is not found");
+                    throw new appError_1.default(404, "user");
                 }
                 return user;
             }
@@ -66,7 +66,7 @@ class UserStorage {
                 let user = yield Users_1.default.findByIdAndUpdate(id, payload);
                 if (!user) {
                     logger_1.logger.warn(`${this.scope}.get failed to Update`);
-                    throw new appError_1.default(404, "User is not found");
+                    throw new appError_1.default(404, "user");
                 }
                 return user;
             }
@@ -82,7 +82,7 @@ class UserStorage {
                 let user = yield Users_1.default.findByIdAndDelete(id);
                 if (!user) {
                     logger_1.logger.warn(`${this.scope}.get failed to Delete`);
-                    throw new appError_1.default(404, "User is not found");
+                    throw new appError_1.default(404, "user");
                 }
                 return user;
             }

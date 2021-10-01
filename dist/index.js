@@ -21,7 +21,7 @@ const logger_1 = require("./config/logger");
         try {
             const db = new db_1.default();
             db.connect();
-            app_1.default.listen(config_1.default.HttpPort, () => {
+            app_1.default.listen(process.env.PORT || config_1.default.HttpPort, () => {
                 logger_1.logger.info(`INDEX: Server is running on port: ${config_1.default.HttpPort}`);
             });
             logger_1.logger.info("INDEX: Database connection initialized.");

@@ -17,7 +17,7 @@ db.once("open", () => {
 function getMongoDBUrl(auth, dbInfo) {
     let url;
     if (auth) {
-        return `mongodb://localhost:27017/${config_1.default.MongoDatabase}`;
+        return `mongodb+srv://admin:admin123@cluster0.py9oo.mongodb.net/auth?retryWrites=true&w=majority`;
     }
     url =
         "mongodb://" +
@@ -34,13 +34,7 @@ function getMongoDBUrl(auth, dbInfo) {
 }
 class Database {
     constructor() {
-        this.url = getMongoDBUrl(false, {
-            database: config_1.default.MongoDatabase,
-            host: config_1.default.MongoHost,
-            password: config_1.default.MongoPassword,
-            port: config_1.default.MongoPort,
-            username: config_1.default.MongoUser
-        });
+        this.url = getMongoDBUrl(true);
         if (config_1.default.MongoAuthDisable) {
             this.url = getMongoDBUrl(config_1.default.MongoAuthDisable);
         }

@@ -8,6 +8,7 @@ db.on("error", () => {
     logger.info("DB: killing myself so that container restarts")
 })
 
+
 db.once("open", () => {
     logger.info("DB: mongo db connection is established")
 })
@@ -23,7 +24,7 @@ interface mongoDBInfo {
 function getMongoDBUrl(auth: boolean, dbInfo?: mongoDBInfo): string {
     let url: string
     if (auth) {
-        return `mongodb://localhost:27017/${config.MongoDatabase}`
+        return `mongodb+srv://admin:admin123@cluster0.py9oo.mongodb.net/auth?retryWrites=true&w=majority`
     }
 
     url =
@@ -41,13 +42,7 @@ function getMongoDBUrl(auth: boolean, dbInfo?: mongoDBInfo): string {
     return url
 }
 export default class Database {
-    url: string = getMongoDBUrl(false, {
-        database: config.MongoDatabase,
-        host: config.MongoHost,
-        password: config.MongoPassword,
-        port: config.MongoPort,
-        username: config.MongoUser
-    })
+    url: string = getMongoDBUrl(true)
 
     constructor() {
         if (config.MongoAuthDisable) {

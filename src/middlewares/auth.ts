@@ -17,7 +17,6 @@ export const authMiddleware = (isTrue: boolean) => {
         if(isTrue && (!id || !email )){
             return next(new AppError(401, 'auth'))
         }
-
         res.locals.id = id
         res.locals.email = email
 

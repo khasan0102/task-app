@@ -38,7 +38,7 @@ class UserController {
             const result = [];
             for (let el of users) {
                 let user = el;
-                user.photo_path = `http://localhost:3000/${user.photo_path}`;
+                user.photo_path = `https://task-app-backend-1.herokuapp.com/${user.photo_path}`;
                 result.push(user);
             }
             res.status(200).json({
@@ -125,7 +125,7 @@ class UserController {
             let token;
             let user = yield main_1.storage.user.findOne({ email });
             token = yield signToken("", user._id);
-            yield emailCode_1.sendMessage(email, `<p>Click there and reset password: <a href="http://localhost:4000/change/${token}">Click</a></p>`);
+            yield emailCode_1.sendMessage(email, `<p>Click there and reset password: <a href="https://task-app-client.herokuapp.com/change/${token}">Click</a></p>`);
             res.status(200).json({
                 succes: true,
                 message: getMessage_1.getMessage({ status: 200, model_name: "sms" }, lang)

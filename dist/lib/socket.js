@@ -38,7 +38,7 @@ const socket = (io, socket) => {
                     break;
                 }
             }
-            let date = `${new Date().getHours()}:${new Date().getMinutes()}`;
+            let date = `${new Date().getHours() + 6}:${new Date().getMinutes()}`;
             if (user_id) {
                 yield main_1.storage.user.update(user_id, { online_time: date }, "eng");
             }

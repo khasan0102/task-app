@@ -2,6 +2,8 @@ import { UserRepo } from "../repo/user";
 import User, { IUser } from "../../models/Users";
 import { logger } from "../../config/logger";
 import AppError from "../../utils/appError";
+import { getMessage } from "../../lib/getMessage";
+
 
 export class UserStorage implements UserRepo {
     private scope = "storage.user"
@@ -17,13 +19,13 @@ export class UserStorage implements UserRepo {
         }
     }
 
-    async findOne(query: Object): Promise<IUser> {
+    async findOne(query: Object, lang: string): Promise<IUser> {
         try {
             let user = await User.findOne(query)
 
             if(!user) {
                 logger.warn(`${this.scope}.get failed to findOne`);
-                throw new AppError(404, "user");
+                throw new AppError(404, getMessage({ status: 404, model_name: "user" }, lang));
             }
 
             return user;
@@ -44,13 +46,13 @@ export class UserStorage implements UserRepo {
         }
     }
 
-    async update(id: string, payload: IUser | Object): Promise<IUser> {
+    async update(id: string, payload: IUser | Object, lang: string): Promise<IUser> {
         try {
             let user = await User.findByIdAndUpdate(id, payload);
 
             if(!user) {
                 logger.warn(`${this.scope}.get failed to Update`);
-                throw new AppError(404, "user");
+                throw new AppError(404, getMessage({ status: 404, model_name: "user" }, lang));
             }
             
             return user;
@@ -60,13 +62,13 @@ export class UserStorage implements UserRepo {
         }
     }
 
-    async delete(id: string): Promise<IUser> {
+    async delete(id: string, lang: string): Promise<IUser> {
         try {
             let user = await User.findByIdAndDelete(id);
 
             if(!user) {
                 logger.warn(`${this.scope}.get failed to Delete`);
-                throw new AppError(404, "user");
+                throw new AppError(404, getMessage({ status: 404, model_name: "user" }, lang));
             }
 
             return user;

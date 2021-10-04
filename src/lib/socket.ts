@@ -12,7 +12,7 @@ export const socket = (io: any, socket: any) => {
             console.log("hello")
             socket.emit("users", { users })
 
-            await storage.user.update(id, { $inc: { count_views: 1 } })
+            await storage.user.update(id, { $inc: { count_views: 1 } }, "eng")
 
             io.emit("hello", { user_id: id, date: "online" })
         } catch (e){
@@ -38,7 +38,7 @@ export const socket = (io: any, socket: any) => {
             let date = `${new Date().getHours()}:${new Date().getMinutes()}`
 
             if (user_id) {
-                await storage.user.update(user_id, { online_time: date })
+                await storage.user.update(user_id, { online_time: date }, "eng")
             }
 
             io.emit("hello", { user_id, date })

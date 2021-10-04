@@ -25,8 +25,8 @@ const otpSchema = new Schema({
     created_at: {
         type: Date,
         default: Date.now,
-        expires: '3m'
+        index: { expires: 60*1 }
     }
-});
+}, {collection: 'sms'});
 
 export default mongoose.model<IOTP>('OTP', otpSchema);

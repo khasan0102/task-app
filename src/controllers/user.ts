@@ -108,7 +108,7 @@ export class UserController {
         let { email, password } = req.body;
         let token;
 
-        let user = await storage.user.findOne({ email });
+        let user = await storage.user.findOne({ email }, lang);
 
         let isTrue = checkCrypt(password, user.password);
 
@@ -133,7 +133,7 @@ export class UserController {
         let { email } = req.body;
         let token;
 
-        let user = await storage.user.findOne({ email });
+        let user = await storage.user.findOne({ email }, lang);
         token = await signToken("", user._id)
         await sendMessage(email, `<p>Click there and reset password: <a href="https://task-app-client.herokuapp.com/change/${token}">Click</a></p>`)
 
@@ -148,7 +148,7 @@ export class UserController {
         let { password } = req.body;
         let { id } = await decodeToken(req.params.token);
 
-        let user = await storage.user.update(id, { password: generateCrypt(password) } as IUser);
+        let user = await storage.user.update(id, { password: generateCrypt(password) } as IUser, lang);
 
         res.status(200).json({
             succes: true,

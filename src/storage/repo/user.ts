@@ -7,8 +7,8 @@ export interface IUserAllResponse {
 
 export interface UserRepo {
     create(payload: IUser): Promise<IUser>
-    update(id: string, payload: IUser | Object): Promise<IUser>
-    delete(id: string): Promise<IUser>
-    findOne(query: Object): Promise<IUser>
+    update(id: string, payload: IUser | Object, lang: string): Promise<IUser>
+    delete(id: string, lang: string): Promise<IUser>
+    findOne(query: Object, lang: string): Promise<IUser>
     find(query: Object): Promise<IUser[]>
 }

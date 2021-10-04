@@ -5,7 +5,7 @@ export interface IUser extends Document {
     _id: string
     email: string
     name: string
-    surname: string
+    lastname: string
     age: number
     photo_path: string 
     password: string
@@ -28,7 +28,7 @@ let userSchema = new Schema({
         type: String,
         required: true
     },
-    surname: String,
+    lastname: String,
     age: {
         type: Number,
         required: true

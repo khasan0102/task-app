@@ -27,13 +27,21 @@ export class UserValidator {
         password: Joi.string().min(8).required().error(new Error("code"))
     })
 
+    resetSchema = Joi.object({
+        email: Joi
+        .string()
+        .required()
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ru'] } })
+        .error(new Error("email")),
+    });
+
     createSchema = Joi.object({
         name: Joi
             .string()
             .required()
             .regex(/^[A-Z][a-z]{3,16}$/)
             .error(new Error("name")),
-        surname: Joi
+        lastname: Joi
             .string()
             .regex(/^[A-Z][a-z]{3,16}$/)
             .error(new Error("surname")),
@@ -61,7 +69,6 @@ export class UserValidator {
     });
 
     create = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-        console.log(req.body)
         const { error } = this.createSchema.validate(req.body);
         if (error) return next(new AppError(400, (error + "").slice(7)));
 
@@ -106,6 +113,15 @@ export class UserValidator {
 
     login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
         const { error } = this.loginSchema.validate(req.body);
+        if(error) {
+            return next(new AppError(400, (error + "").slice(7)))
+        }
+
+        next();
+    });
+
+    reset = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        const { error } = this.resetSchema.validate(req.body);
         if(error) {
             return next(new AppError(400, (error + "").slice(7)))
         }

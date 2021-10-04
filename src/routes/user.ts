@@ -53,7 +53,7 @@ const photo = upload.fields([
 router.route("/auth").post(validator.auth, controller.auth);
 router.route("/create").post(photo, validator.create, authMiddleware(false), controller.create);
 router.route("/login").post(validator.login, controller.login);
-router.route("/reset").post(validator.auth, controller.resetPassword);
+router.route("/reset").post(validator.reset, controller.resetPassword);
 router.route("/all").get(authMiddleware(true), controller.getAll);
 router.route("/changepassword/:token").post(validator.update, controller.changePassword);
 

@@ -82,7 +82,7 @@ export class UserController {
         if(user) {
             return next(new AppError(400, "user"))
         }
-        let { name, surname, password, age } = req.body;
+        let { name, lastname, password, age } = req.body;
     
         let token;
         password = generateCrypt(password);
@@ -90,7 +90,7 @@ export class UserController {
         let { photo: [ photo ] } = req.files as { photo: Express.Multer.File[] };
         let photo_path = `${photo.filename}`
         console.log(email)
-        user = await storage.user.create({ email, password, name, surname, age, photo_path } as IUser);
+        user = await storage.user.create({ email, password, name, lastname, age, photo_path } as IUser);
         token = await signToken(email, user._id);
         
         res.json({

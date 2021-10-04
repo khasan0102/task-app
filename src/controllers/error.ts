@@ -7,6 +7,7 @@ export class ErrorController {
     sendErrorDev = (err: AppError, req: Request, res: Response, next: NextFunction) => {
         const { lang } = res.locals
         let message: string = getMessage({ status: err.statusCode, model_name: err.message}, lang)
+        console.log(message);
         return res.status(err.statusCode).json({
             success: false,
             error: err,

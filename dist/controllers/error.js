@@ -11,6 +11,7 @@ class ErrorController {
         this.sendErrorDev = (err, req, res, next) => {
             const { lang } = res.locals;
             let message = (0, getMessage_1.getMessage)({ status: err.statusCode, model_name: err.message }, lang);
+            console.log(message);
             return res.status(err.statusCode).json({
                 success: false,
                 error: err,

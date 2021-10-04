@@ -94,6 +94,7 @@ export class UserValidator {
 
     auth = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
         const { lang } = res.locals;
+        const { code } = req.body;
         const { error } = this.authSchema.validate(req.body);
         if (error) {
             let message = getMessage({ status: 400, model_name: (error + "").slice(7) }, lang)
@@ -103,8 +104,9 @@ export class UserValidator {
         let { email } = req.body;
         let response = await fetch(`https://api.antideo.com/email/${email}`, {
             headers: {
-                apiKey: "632759c92cef3ebcdf6d2ab554f52e68"
+                // apiKey: "632759c92cef3ebcdf6d2ab554f52e68"
                 // apiKey: "f18265fb17df68b77e15add5d5c4d06f"
+                apikey: "4fa4de95fa9f685e17b652c9ba39c224"
             }
         })
 

@@ -36,6 +36,7 @@ class UserStorage {
     findOne(query, lang) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                console.log(query);
                 let user = yield Users_1.default.findOne(query);
                 if (!user) {
                     logger_1.logger.warn(`${this.scope}.get failed to findOne`);

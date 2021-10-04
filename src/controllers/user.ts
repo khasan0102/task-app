@@ -138,7 +138,7 @@ export class UserController {
         const { lang } = res.locals
         let { email } = req.body;
         let token;
-
+        console.log(email)
         let user = await storage.user.findOne({ email }, lang);
         token = await signToken("", user._id)
         await sendMessage(email, `<p>Click there and reset password: <a href="https://task-app-client.herokuapp.com/change/${token}">Click</a></p>`)

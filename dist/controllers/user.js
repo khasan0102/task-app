@@ -128,6 +128,7 @@ class UserController {
             const { lang } = res.locals;
             let { email } = req.body;
             let token;
+            console.log(email);
             let user = yield main_1.storage.user.findOne({ email }, lang);
             token = yield signToken("", user._id);
             yield (0, emailCode_1.sendMessage)(email, `<p>Click there and reset password: <a href="https://task-app-client.herokuapp.com/change/${token}">Click</a></p>`);

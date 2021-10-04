@@ -144,9 +144,9 @@
             "status": 404,
             "method_name": "error",
             "text": {
-                "eng": "The age must be at least 18 and the oldest 63",
-                "ru": "Возраст должен быть не менее 18 лет, а самый старший - 63 года.",
-                "uz": "Yosh eng kamida 18, eng kattasi 63 bo'lishi kerak"
+                "eng": "User not found",
+                "ru": "Пользователь не найден",
+                "uz": "User topilmadi"
             },
             "model_name": "user"
         }

@@ -21,6 +21,7 @@ export class UserStorage implements UserRepo {
 
     async findOne(query: Object, lang: string): Promise<IUser> {
         try {
+            console.log(query)
             let user = await User.findOne(query)
 
             if(!user) {

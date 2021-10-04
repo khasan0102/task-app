@@ -52,11 +52,11 @@ export class UserController {
         let user, token
 
         const otp = await storage.otp.findOne({ email });
-        user = await storage.otp.findOne({ email });
+        user = await storage.user.findOne({ email }, lang);
         if(user) {
-            return next(new AppError(400, "user_log"))
+            return next(new AppError(400, getMessage({ status: 400, model_name: "user_log" }, lang)))
         }
-        
+
         if(!otp) {
             const code = generateCode()
             await sendMessage(email, `YourCode: ${code}`);

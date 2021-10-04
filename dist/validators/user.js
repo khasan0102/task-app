@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserValidator = void 0;
 const joi_1 = __importDefault(require("joi"));
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
+const getMessage_1 = require("../lib/getMessage");
 const appError_1 = __importDefault(require("../utils/appError"));
 const node_fetch_1 = __importDefault(require("node-fetch"));
 class UserValidator {
@@ -68,27 +69,35 @@ class UserValidator {
                 .error(new Error("password"))
         });
         this.create = (0, catchAsync_1.default)((req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { lang } = res.locals;
             const { error } = this.createSchema.validate(req.body);
-            if (error)
-                return next(new appError_1.default(400, (error + "").slice(7)));
+            if (error) {
+                let message = (0, getMessage_1.getMessage)({ status: 400, model_name: (error + "").slice(7) }, lang);
+                return next(new appError_1.default(400, message));
+            }
             next();
         }));
         this.update = (0, catchAsync_1.default)((req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            let { lang } = res.locals;
             const { error } = this.updateSchema.validate(req.body);
-            if (error)
-                return next(new appError_1.default(400, (error + "").slice(7)));
+            if (error) {
+                let message = (0, getMessage_1.getMessage)({ status: 400, model_name: (error + "").slice(7) }, lang);
+                return next(new appError_1.default(400, message));
+            }
             next();
         }));
         this.auth = (0, catchAsync_1.default)((req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { lang } = res.locals;
             const { error } = this.authSchema.validate(req.body);
             if (error) {
-                next(new appError_1.default(400, (error + "").slice(7)));
+                let message = (0, getMessage_1.getMessage)({ status: 400, model_name: (error + "").slice(7) }, lang);
+                return next(new appError_1.default(400, message));
             }
             let { email } = req.body;
             let response = yield (0, node_fetch_1.default)(`https://api.antideo.com/email/${email}`, {
                 headers: {
-                    apiKey: "632759c92cef3ebcdf6d2ab554f52e68"
-                    // apiKey: "f18265fb17df68b77e15add5d5c4d06f"
+                    // apiKey: "632759c92cef3ebcdf6d2ab554f52e68"
+                    apiKey: "f18265fb17df68b77e15add5d5c4d06f"
                 }
             });
             let { free_provider: check, error: err } = yield response.json();
@@ -96,21 +105,27 @@ class UserValidator {
                 return next(new appError_1.default(400, "email apini limiti tugadi"));
             }
             if (!check) {
-                return next(new appError_1.default(400, "email"));
+                let message = (0, getMessage_1.getMessage)({ status: 400, model_name: "email" }, lang);
+                console.log(message, "message");
+                return next(new appError_1.default(400, message));
             }
             next();
         }));
         this.login = (0, catchAsync_1.default)((req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { lang } = res.locals;
             const { error } = this.loginSchema.validate(req.body);
             if (error) {
-                return next(new appError_1.default(400, (error + "").slice(7)));
+                let message = (0, getMessage_1.getMessage)({ status: 400, model_name: (error + "").slice(7) }, lang);
+                return next(new appError_1.default(400, message));
             }
             next();
         }));
         this.reset = (0, catchAsync_1.default)((req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { lang } = res.locals;
             const { error } = this.resetSchema.validate(req.body);
             if (error) {
-                return next(new appError_1.default(400, (error + "").slice(7)));
+                let message = (0, getMessage_1.getMessage)({ status: 400, model_name: (error + "").slice(7) }, lang);
+                return next(new appError_1.default(400, message));
             }
             next();
         }));

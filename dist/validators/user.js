@@ -100,8 +100,8 @@ class UserValidator {
             let { email } = req.body;
             let response = yield (0, node_fetch_1.default)(`https://api.antideo.com/email/${email}`, {
                 headers: {
-                    // apiKey: "632759c92cef3ebcdf6d2ab554f52e68"
-                    apiKey: "f18265fb17df68b77e15add5d5c4d06f"
+                    apiKey: "632759c92cef3ebcdf6d2ab554f52e68"
+                    // apiKey: "f18265fb17df68b77e15add5d5c4d06f"
                     // apikey: "4fa4de95fa9f685e17b652c9ba39c224"
                 }
             });

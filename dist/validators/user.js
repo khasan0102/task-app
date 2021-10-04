@@ -88,6 +88,7 @@ class UserValidator {
         }));
         this.auth = (0, catchAsync_1.default)((req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const { lang } = res.locals;
+            const { code } = req.body;
             const { error } = this.authSchema.validate(req.body);
             if (error) {
                 let message = (0, getMessage_1.getMessage)({ status: 400, model_name: (error + "").slice(7) }, lang);
@@ -97,7 +98,8 @@ class UserValidator {
             let response = yield (0, node_fetch_1.default)(`https://api.antideo.com/email/${email}`, {
                 headers: {
                     // apiKey: "632759c92cef3ebcdf6d2ab554f52e68"
-                    apiKey: "f18265fb17df68b77e15add5d5c4d06f"
+                    // apiKey: "f18265fb17df68b77e15add5d5c4d06f"
+                    apikey: "4fa4de95fa9f685e17b652c9ba39c224"
                 }
             });
             let { free_provider: check, error: err } = yield response.json();

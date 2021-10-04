@@ -20,18 +20,14 @@ const socket = (io, socket) => {
             users[id] = {
                 id: socket.id
             };
-            console.log("hello");
             socket.emit("users", { users });
-            yield main_1.storage.user.update(id, { $inc: { count_views: 1 } });
+            yield main_1.storage.user.update(id, { $inc: { count_views: 1 } }, "eng");
             io.emit("hello", { user_id: id, date: "online" });
         }
         catch (e) {
             console.log(e + "");
         }
     }));
-    socket.on("disconnecting", () => {
-        socket.emit("hay", { hay: "shunaqa gaplar" });
-    });
     socket.on("disconnect", () => __awaiter(void 0, void 0, void 0, function* () {
         try {
             let user_id;
@@ -44,7 +40,7 @@ const socket = (io, socket) => {
             }
             let date = `${new Date().getHours()}:${new Date().getMinutes()}`;
             if (user_id) {
-                yield main_1.storage.user.update(user_id, { online_time: date });
+                yield main_1.storage.user.update(user_id, { online_time: date }, "eng");
             }
             io.emit("hello", { user_id, date });
         }

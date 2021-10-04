@@ -16,6 +16,7 @@ exports.UserStorage = void 0;
 const Users_1 = __importDefault(require("../../models/Users"));
 const logger_1 = require("../../config/logger");
 const appError_1 = __importDefault(require("../../utils/appError"));
+const getMessage_1 = require("../../lib/getMessage");
 class UserStorage {
     constructor() {
         this.scope = "storage.user";
@@ -32,13 +33,13 @@ class UserStorage {
             }
         });
     }
-    findOne(query) {
+    findOne(query, lang) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let user = yield Users_1.default.findOne(query);
                 if (!user) {
                     logger_1.logger.warn(`${this.scope}.get failed to findOne`);
-                    throw new appError_1.default(404, "user");
+                    throw new appError_1.default(404, (0, getMessage_1.getMessage)({ status: 404, model_name: "user" }, lang));
                 }
                 return user;
             }
@@ -60,13 +61,13 @@ class UserStorage {
             }
         });
     }
-    update(id, payload) {
+    update(id, payload, lang) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let user = yield Users_1.default.findByIdAndUpdate(id, payload);
                 if (!user) {
                     logger_1.logger.warn(`${this.scope}.get failed to Update`);
-                    throw new appError_1.default(404, "user");
+                    throw new appError_1.default(404, (0, getMessage_1.getMessage)({ status: 404, model_name: "user" }, lang));
                 }
                 return user;
             }
@@ -76,13 +77,13 @@ class UserStorage {
             }
         });
     }
-    delete(id) {
+    delete(id, lang) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let user = yield Users_1.default.findByIdAndDelete(id);
                 if (!user) {
                     logger_1.logger.warn(`${this.scope}.get failed to Delete`);
-                    throw new appError_1.default(404, "user");
+                    throw new appError_1.default(404, (0, getMessage_1.getMessage)({ status: 404, model_name: "user" }, lang));
                 }
                 return user;
             }

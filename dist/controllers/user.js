@@ -61,7 +61,7 @@ class UserController {
             }
             else {
                 if (code !== otp.code) {
-                    return next(new appError_1.default(400, "sms"));
+                    return next(new appError_1.default(400, (0, getMessage_1.getMessage)({ status: 400, model_name: "sms" }, lang)));
                 }
                 else {
                     token = yield signToken(email, "");
@@ -104,7 +104,7 @@ class UserController {
             const { lang } = res.locals;
             let { email, password } = req.body;
             let token;
-            let user = yield main_1.storage.user.findOne({ email });
+            let user = yield main_1.storage.user.findOne({ email }, lang);
             let isTrue = (0, bcrypt_1.checkCrypt)(password, user.password);
             if (!isTrue) {
                 return next(new appError_1.default(400, "password"));
@@ -123,7 +123,7 @@ class UserController {
             const { lang } = res.locals;
             let { email } = req.body;
             let token;
-            let user = yield main_1.storage.user.findOne({ email });
+            let user = yield main_1.storage.user.findOne({ email }, lang);
             token = yield signToken("", user._id);
             yield (0, emailCode_1.sendMessage)(email, `<p>Click there and reset password: <a href="https://task-app-client.herokuapp.com/change/${token}">Click</a></p>`);
             res.status(200).json({
@@ -135,10 +135,24 @@ class UserController {
             const { lang } = res.locals;
             let { password } = req.body;
             let { id } = yield (0, exports.decodeToken)(req.params.token);
-            let user = yield main_1.storage.user.update(id, { password: (0, bcrypt_1.generateCrypt)(password) });
+            let user = yield main_1.storage.user.update(id, { password: (0, bcrypt_1.generateCrypt)(password) }, lang);
             res.status(200).json({
                 succes: true,
+                data: {
+                    user
+                },
                 message: (0, getMessage_1.getMessage)({ method_name: "update", model_name: "user" }, lang)
+            });
+        }));
+        this.getOne = (0, catchAsync_1.default)((req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const { lang } = res.locals;
+            const { id } = req.params;
+            let user = yield main_1.storage.user.findOne({ _id: id }, lang);
+            res.status(200).json({
+                succes: true,
+                data: {
+                    user
+                }
             });
         }));
     }

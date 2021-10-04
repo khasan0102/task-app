@@ -43,5 +43,6 @@ router.route("/create").post(photo, validator.create, (0, auth_1.authMiddleware)
 router.route("/login").post(validator.login, controller.login);
 router.route("/reset").post(validator.reset, controller.resetPassword);
 router.route("/all").get((0, auth_1.authMiddleware)(true), controller.getAll);
+router.route("/:id").get((0, auth_1.authMiddleware)(true), controller.getOne);
 router.route("/changepassword/:token").post(validator.update, controller.changePassword);
 exports.default = router;

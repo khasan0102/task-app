@@ -1,0 +1,154 @@
+{
+    "data": [
+        {
+            "status": 200,
+            "method_name": "auth",
+            "text": {
+                "eng": "Email verified",
+                "ru": "Электронная почта подтверждена",
+                "uz": "Email to'g'ri"
+            },
+            "model_name": "user"
+        },
+        {
+            "status": 200,
+            "method_name": "login",
+            "text": {
+                "eng": "Access to the user was successful",
+                "ru": "Доступ к пользователь прошел успешно",
+                "uz": "Foydalanuvchi kirish muvaffaqiyatli bo'ldi"
+            },
+            "model_name": "user"
+        },
+        {
+            "status": 201,
+            "method_name": "create",
+            "text": {
+                "eng": "The user was successful in registering",
+                "ru": "Пользователь успешно зарегистрировал",
+                "uz": "Foydalabuvchi muvaffaqiyatli ro'yxatdan o'tdi"
+            },
+            "model_name": "user"
+        },
+        {
+            "status": 200,
+            "method_name": "update",
+            "text": {
+                "eng": "Your password changed",
+                "ru": "Ваш пароль был изменен",
+                "uz": "Sizning parolingiz o'zgartirildi"
+            },
+            "model_name": "user"
+        },
+        {
+            "status": 200,
+            "method_name": "send",
+            "text": {
+                "eng": "A message has been sent to your email",
+                "ru": "Сообщение было отправлено на вашу электронную почту",
+                "uz": "Emailingizga xabar jo'natildi"
+            },
+            "model_name": "sms"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
+                "eng": "Code wrong",
+                "ru": "Код неправильный",
+                "uz": "Kod noto'g'ri"
+            },
+            "model_name": "sms"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
+                "eng": "The email was not entered correctly",
+                "ru": "Электронная почта была введена неправильно",
+                "uz": "Email to'g'ri kiritilmagan"
+            },
+            "model_name": "email"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
+                "eng": "Codening uzunligi eng kamida sakkista bo'lishi kerak",
+                "ru": "Длина кода должна быть не менее восьмидесяти.",
+                "uz": "Codening uzunligi eng kamida sakkista bo'lishi kerak"
+            },
+            "model_name": "code"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
+                "eng": "Password entered incorrectly",
+                "ru": "Пароль введен неверно",
+                "uz": "Password noto'g'ri kiritilgan"
+            },
+            "model_name": "login_password"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
+                "eng": "The first letter of the name must be capitalized and the rest must be Latin letters",
+                "ru": "Первая буква имени должна быть заглавной, а остальные - латинскими",
+                "uz": "Ismda birinchi harf katta qolganlari lotin harfladan iborat bo'lishi kerak"
+            },
+            "model_name": "name"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
+                "eng": "This email was previously registered ",
+                "ru": "Этот адрес электронной почты был ранее зарегистрирован",
+                "uz": "Ismda birinchi harf katta qolganlari lotin harfladan iborat bo'lishi kerak"
+            },
+            "model_name": "user"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
+                "eng": "The first letter of the surname must be capitalized and the rest must be Latin letters",
+                "ru": "Первая буква имени должна быть заглавной, а остальные - латинскими",
+                "uz": "Familiyada birinchi harf katta qolganlari lotin harfladan iborat bo'lishi kerak"
+            },
+            "model_name": "surname"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
+                "eng": "Password must be at least 8 characters long containing 1 capital letter, 1 small letter, 1 digit and 1 of these special characters",
+                "ru": "Пароль должен состоять не менее чем из 8 символов, содержащих 1 заглавную букву, 1 строчную букву, 1 цифру и 1 из этих специальных символов.",
+                "uz": "Parol kamida 8 ta belgidan iborat bo'lishi kerak, unda 1 ta bosh harf, 1 ta kichik harf, 1 ta raqam va 1 ta maxsus belgi bo'lishi kerak"
+            },
+            "model_name": "password"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
+                "eng": "The age must be at least 18 and the oldest 63",
+                "ru": "Возраст должен быть не менее 18 лет, а самый старший - 63 года.",
+                "uz": "Yosh eng kamida 18, eng kattasi 63 bo'lishi kerak"
+            },
+            "model_name": "age"
+        },
+        {
+            "status": 404,
+            "method_name": "error",
+            "text": {
+                "eng": "The age must be at least 18 and the oldest 63",
+                "ru": "Возраст должен быть не менее 18 лет, а самый старший - 63 года.",
+                "uz": "Yosh eng kamida 18, eng kattasi 63 bo'lishi kerak"
+            },
+            "model_name": "user"
+        }
+    ]
+}

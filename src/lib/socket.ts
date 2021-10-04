@@ -9,7 +9,7 @@ export const socket = (io: any, socket: any) => {
             users[id] = {
                 id: socket.id
             }
-            console.log("hello")
+
             socket.emit("users", { users })
 
             await storage.user.update(id, { $inc: { count_views: 1 } }, "eng")
@@ -18,10 +18,6 @@ export const socket = (io: any, socket: any) => {
         } catch (e){
             console.log(e + "")
         }
-    })
-
-    socket.on("disconnecting", () => {
-        socket.emit("hay", { hay: "shunaqa gaplar" })
     })
 
     socket.on("disconnect", async () => {

@@ -60,7 +60,7 @@ export class UserController {
             await storage.otp.create({email, code} as IOTP);
         }else {
             if(code !== otp.code) {
-                return next(new AppError(400, "sms"))
+                return next(new AppError(400, getMessage({ status: 400, model_name: "sms" }, lang)))
             }else {
                 token = await signToken(email, "");
             }
@@ -152,7 +152,24 @@ export class UserController {
 
         res.status(200).json({
             succes: true,
+            data: {
+                user
+            },
             message: getMessage({ method_name: "update", model_name: "user"}, lang)
+        });
+    });
+
+    getOne = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        const { lang } = res.locals;
+        const { id } = req.params;
+
+        let user = await storage.user.findOne({ _id: id }, lang);
+
+        res.status(200).json({
+            succes: true,
+            data: {
+                user
+            }
         });
     });
 }

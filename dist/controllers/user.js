@@ -54,6 +54,10 @@ class UserController {
             const { email, code } = req.body;
             let user, token;
             const otp = yield main_1.storage.otp.findOne({ email });
+            user = yield main_1.storage.otp.findOne({ email });
+            if (user) {
+                return next(new appError_1.default(400, "user_log"));
+            }
             if (!otp) {
                 const code = (0, emailCode_1.generateCode)();
                 yield (0, emailCode_1.sendMessage)(email, `YourCode: ${code}`);

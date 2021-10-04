@@ -84,6 +84,16 @@
             "status": 400,
             "method_name": "error",
             "text": {
+                "eng": "This user has already registered",
+                "ru": "этот пользователь уже зарегистрировался",
+                "uz": "Bu user avval ro'yhatdan o'tgan"
+            },
+            "model_name": "user_log"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
                 "eng": "Password entered incorrectly",
                 "ru": "Пароль введен неверно",
                 "uz": "Password noto'g'ri kiritilgan"

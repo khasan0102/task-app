@@ -54,8 +54,9 @@ class UserController {
             const { email, code } = req.body;
             let user, token;
             const otp = yield main_1.storage.otp.findOne({ email });
-            user = yield main_1.storage.user.findOne({ email }, lang);
-            if (user) {
+            user = yield main_1.storage.user.find({ email });
+            console.log(user);
+            if (user.length) {
                 return next(new appError_1.default(400, (0, getMessage_1.getMessage)({ status: 400, model_name: "user_log" }, lang)));
             }
             if (!otp) {
@@ -152,6 +153,7 @@ class UserController {
             const { lang } = res.locals;
             const { id } = req.params;
             let user = yield main_1.storage.user.findOne({ _id: id }, lang);
+            user.photo_path = "https://task-app-backend-1.herokuapp.com/" + user.photo_path;
             res.status(200).json({
                 succes: true,
                 data: {

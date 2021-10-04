@@ -52,8 +52,10 @@ export class UserController {
         let user, token
 
         const otp = await storage.otp.findOne({ email });
-        user = await storage.user.findOne({ email }, lang);
-        if(user) {
+
+        user = await storage.user.find({ email });
+        console.log(user)
+        if(user.length) {
             return next(new AppError(400, getMessage({ status: 400, model_name: "user_log" }, lang)))
         }
 
@@ -168,7 +170,7 @@ export class UserController {
         const { id } = req.params;
 
         let user = await storage.user.findOne({ _id: id }, lang);
-
+        user.photo_path = "https://task-app-backend-1.herokuapp.com/" + user.photo_path
         res.status(200).json({
             succes: true,
             data: {

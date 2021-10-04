@@ -1,6 +1,7 @@
 import Joi from "joi"
 import { NextFunction, Request, Response } from "express"
 import catchAsync from "../utils/catchAsync"
+import { getMessage } from "../lib/getMessage"
 import AppError from "../utils/appError"
 import fetch from "node-fetch";
 
@@ -29,10 +30,10 @@ export class UserValidator {
 
     resetSchema = Joi.object({
         email: Joi
-        .string()
-        .required()
-        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ru'] } })
-        .error(new Error("email")),
+            .string()
+            .required()
+            .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ru'] } })
+            .error(new Error("email")),
     });
 
     createSchema = Joi.object({
@@ -48,7 +49,7 @@ export class UserValidator {
         password: Joi
             .string()
             .regex(
-                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
             )
             .required()
             .error(
@@ -59,71 +60,88 @@ export class UserValidator {
 
     updateSchema = Joi.object({
         password: Joi.string()
-        .regex(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-        )
-        .required()
-        .error(
-           new Error("password")
-        )
+            .regex(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+            )
+            .required()
+            .error(
+                new Error("password")
+            )
     });
 
     create = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        const { lang } = res.locals;
         const { error } = this.createSchema.validate(req.body);
-        if (error) return next(new AppError(400, (error + "").slice(7)));
+        if (error) {
+            let message = getMessage({ status: 400, model_name: (error + "").slice(7) }, lang)
+            return next(new AppError(400, message))
+        }
 
         next();
     });
 
     update = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        let { lang } = res.locals;
         const { error } = this.updateSchema.validate(req.body)
-        if (error) return next(new AppError(400, (error + "").slice(7)))
+
+        if (error) {
+            let message = getMessage({ status: 400, model_name: (error + "").slice(7) }, lang)
+            return next(new AppError(400, message))
+        }
 
         next();
     });
 
     auth = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        const { lang } = res.locals;
         const { error } = this.authSchema.validate(req.body);
-
-        if(error) {
-            next(new AppError(400, (error + "").slice(7)))
+        if (error) {
+            let message = getMessage({ status: 400, model_name: (error + "").slice(7) }, lang)
+            return next(new AppError(400, message))
         }
 
         let { email } = req.body;
         let response = await fetch(`https://api.antideo.com/email/${email}`, {
             headers: {
-                apiKey: "632759c92cef3ebcdf6d2ab554f52e68"
-                // apiKey: "f18265fb17df68b77e15add5d5c4d06f"
+                // apiKey: "632759c92cef3ebcdf6d2ab554f52e68"
+                apiKey: "f18265fb17df68b77e15add5d5c4d06f"
             }
         })
 
 
-        let { free_provider: check, error: err } = await response.json() as { free_provider: boolean, error: {}}
+        let { free_provider: check, error: err } = await response.json() as { free_provider: boolean, error: {} }
 
-        if(err) {
-            return next(new AppError(400, "email apini limiti tugadi")) 
+        if (err) {
+            return next(new AppError(400, "email apini limiti tugadi"))
         }
 
-        if(!check) {
-            return next(new AppError(400, "email"))
+        if (!check) {
+            let message = getMessage({ status: 400, model_name: "email" }, lang);
+            console.log(message, "message");
+            return next(new AppError(400, message))
         }
 
         next()
     });
 
     login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        const { lang } = res.locals;
         const { error } = this.loginSchema.validate(req.body);
-        if(error) {
-            return next(new AppError(400, (error + "").slice(7)))
+        if (error){
+            let message = getMessage({ status: 400, model_name: (error + "").slice(7)}, lang)
+            return next(new AppError(400, message))
         }
 
         next();
     });
 
     reset = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+        const { lang } = res.locals;
+
         const { error } = this.resetSchema.validate(req.body);
-        if(error) {
-            return next(new AppError(400, (error + "").slice(7)))
+        if (error){
+            let message = getMessage({ status: 400, model_name: (error + "").slice(7)}, lang)
+            return next(new AppError(400, message))
         }
 
         next();

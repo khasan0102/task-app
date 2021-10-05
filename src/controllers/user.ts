@@ -32,7 +32,7 @@ export class UserController {
         const result = [];
         for (let el of users) {
             let user = el as IUser;
-            user.photo_path = `https://task-app-backend-1.herokuapp.com/${user.photo_path}`;
+            user.photo_path = `http://localhost:3000/${user.photo_path}`;
             result.push(user);
         }
 
@@ -54,7 +54,6 @@ export class UserController {
         const otp = await storage.otp.findOne({ email });
 
         user = await storage.user.find({ email });
-        console.log(user)
         if(user.length) {
             return next(new AppError(400, getMessage({ status: 400, model_name: "user_log" }, lang)))
         }
@@ -95,7 +94,6 @@ export class UserController {
 
         let { photo: [ photo ] } = req.files as { photo: Express.Multer.File[] };
         let photo_path = `${photo.filename}`
-        console.log(email)
         user = await storage.user.create({ email, password, name, lastname, age, photo_path } as IUser);
         token = await signToken(email, user._id);
         
@@ -119,7 +117,7 @@ export class UserController {
         let isTrue = checkCrypt(password, user.password);
 
         if(!isTrue) {
-            return next(new AppError(400, "password"))
+            return next(new AppError(400, getMessage({status: 400, model_name: "password"}, lang)))
         }
 
         token = await signToken(email, user._id);
@@ -138,10 +136,9 @@ export class UserController {
         const { lang } = res.locals
         let { email } = req.body;
         let token;
-        console.log(email)
         let user = await storage.user.findOne({ email }, lang);
         token = await signToken("", user._id)
-        await sendMessage(email, `<p>Click there and reset password: <a href="https://task-app-client.herokuapp.com/change/${token}">Click</a></p>`)
+        await sendMessage(email, `<p>Click there and reset password: <a href="http://localhost:4000/change/${token}">Click</a></p>`)
 
         res.status(200).json({
             succes: true,
@@ -170,7 +167,7 @@ export class UserController {
         const { id } = req.params;
 
         let user = await storage.user.findOne({ _id: id }, lang);
-        user.photo_path = "https://task-app-backend-1.herokuapp.com/" + user.photo_path
+        user.photo_path = "http://localhost:3000/" + user.photo_path
         res.status(200).json({
             succes: true,
             data: {

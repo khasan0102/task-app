@@ -3,6 +3,7 @@ import config from "../config/config"
 import { storage } from '../storage/main'
 import AppError from '../utils/appError'
 import { decodeToken } from '../controllers/user'
+import { IUser } from '../models/Users'
 
 export const authMiddleware = (isTrue: boolean) => {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -17,6 +18,13 @@ export const authMiddleware = (isTrue: boolean) => {
         if(isTrue && (!id || !email )){
             return next(new AppError(401, 'auth'))
         }
+
+        let users = await storage.user.find({email});
+
+        if(isTrue && users.length < 1) {
+            return next(new AppError(401, 'auth'))
+        }
+
         res.locals.id = id
         res.locals.email = email
 

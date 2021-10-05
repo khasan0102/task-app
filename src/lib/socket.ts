@@ -9,7 +9,7 @@ export const socket = (io: any, socket: any) => {
             users[id] = {
                 id: socket.id
             }
-
+            console.log(users)
             socket.emit("users", { users })
 
             await storage.user.update(id, { $inc: { count_views: 1 } }, "eng")
@@ -31,7 +31,7 @@ export const socket = (io: any, socket: any) => {
                     break
                 }
             }
-            let date = `${new Date().getHours() + 6 }:${new Date().getMinutes()}`
+            let date = `${new Date().getHours()}:${new Date().getMinutes()}`
 
             if (user_id) {
                 await storage.user.update(user_id, { online_time: date }, "eng")

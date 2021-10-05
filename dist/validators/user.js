@@ -105,10 +105,12 @@ class UserValidator {
                     // apikey: "4fa4de95fa9f685e17b652c9ba39c224"
                 }
             });
+            console.log("hello word");
             let { free_provider: check, error: err } = yield response.json();
             if (err) {
                 return next(new appError_1.default(400, "email apini limiti tugadi"));
             }
+            console.log(check);
             if (!check) {
                 let message = (0, getMessage_1.getMessage)({ status: 400, model_name: "email" }, lang);
                 console.log(message, "message");

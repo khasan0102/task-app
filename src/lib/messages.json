@@ -74,6 +74,16 @@
             "status": 400,
             "method_name": "error",
             "text": {
+                "eng": "Enter Real Email",
+                "ru": "Введите реальный адрес электронной почты",
+                "uz": "Haqiqiy Email kiriting"
+            },
+            "model_name": "email_check"
+        },
+        {
+            "status": 400,
+            "method_name": "error",
+            "text": {
                 "eng": "Codening uzunligi eng kamida sakkista bo'lishi kerak",
                 "ru": "Длина кода должна быть не менее восьмидесяти.",
                 "uz": "Codening uzunligi eng kamida sakkista bo'lishi kerak"

@@ -55,7 +55,6 @@ class UserController {
             let user, token;
             const otp = yield main_1.storage.otp.findOne({ email });
             user = yield main_1.storage.user.find({ email });
-            console.log(user);
             if (user.length) {
                 return next(new appError_1.default(400, (0, getMessage_1.getMessage)({ status: 400, model_name: "user_log" }, lang)));
             }
@@ -93,7 +92,6 @@ class UserController {
             password = (0, bcrypt_1.generateCrypt)(password);
             let { photo: [photo] } = req.files;
             let photo_path = `${photo.filename}`;
-            console.log(email);
             user = yield main_1.storage.user.create({ email, password, name, lastname, age, photo_path });
             token = yield signToken(email, user._id);
             res.json({
@@ -128,7 +126,6 @@ class UserController {
             const { lang } = res.locals;
             let { email } = req.body;
             let token;
-            console.log(email);
             let user = yield main_1.storage.user.findOne({ email }, lang);
             token = yield signToken("", user._id);
             yield (0, emailCode_1.sendMessage)(email, `<p>Click there and reset password: <a href="https://task-app-client.herokuapp.com/change/${token}">Click</a></p>`);

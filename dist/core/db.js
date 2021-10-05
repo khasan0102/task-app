@@ -17,7 +17,7 @@ db.once("open", () => {
 function getMongoDBUrl(auth, dbInfo) {
     let url;
     if (auth) {
-        return `mongodb+srv://admin:admin123@cluster0.py9oo.mongodb.net/auth?retryWrites=true&w=majority`;
+        return `mongodb+srv://khasan:gMw5IMZi6DyIEOC6@cluster0.lsiux.mongodb.net/task_app?retryWrites=true&w=majority`;
     }
     url =
         "mongodb://" +
@@ -56,3 +56,4 @@ class Database {
     }
 }
 exports.default = Database;
+// gMw5IMZi6DyIEOC6

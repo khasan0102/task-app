@@ -24,7 +24,7 @@ interface mongoDBInfo {
 function getMongoDBUrl(auth: boolean, dbInfo?: mongoDBInfo): string {
     let url: string
     if (auth) {
-        return `mongodb+srv://admin:admin123@cluster0.py9oo.mongodb.net/auth?retryWrites=true&w=majority`
+        return `mongodb+srv://khasan:gMw5IMZi6DyIEOC6@cluster0.lsiux.mongodb.net/task_app?retryWrites=true&w=majority`
     }
 
     url =
@@ -43,12 +43,11 @@ function getMongoDBUrl(auth: boolean, dbInfo?: mongoDBInfo): string {
 }
 export default class Database {
     url: string = getMongoDBUrl(true)
-
+    
     constructor() {
         if (config.MongoAuthDisable) {
             this.url = getMongoDBUrl(config.MongoAuthDisable)
         }
-
         logger.info(`DB: DATABASE URL: ${this.url}`)
     }
 
@@ -71,3 +70,4 @@ export default class Database {
         )
     }
 }
+// gMw5IMZi6DyIEOC6

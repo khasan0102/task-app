@@ -100,29 +100,26 @@ export class UserValidator {
             let message = getMessage({ status: 400, model_name: (error + "").slice(7) }, lang)
             return next(new AppError(400, message))
         }
-
-        if(code) {
-            return next();
-        }
+        
 
         let { email } = req.body;
         let response = await fetch(`https://api.antideo.com/email/${email}`, {
+            method: "GET",
             headers: {
-                apiKey: "632759c92cef3ebcdf6d2ab554f52e68"
+                // apiKey: "632759c92cef3ebcdf6d2ab554f52e68"
                 // apiKey: "f18265fb17df68b77e15add5d5c4d06f"
-                // apikey: "4fa4de95fa9f685e17b652c9ba39c224"
+                apikey: "4fa4de95fa9f685e17b652c9ba39c224"
             }
         })
 
-
         let { free_provider: check, error: err } = await response.json() as { free_provider: boolean, error: {} }
-
+        console.log(check)
         if (err) {
             return next(new AppError(400, "email apini limiti tugadi"))
         }
 
         if (!check) {
-            let message = getMessage({ status: 400, model_name: "email" }, lang);
+            let message = getMessage({ status: 400, model_name: "email_check" }, lang);
             console.log(message, "message");
             return next(new AppError(400, message))
         }
